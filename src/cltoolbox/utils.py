@@ -9,12 +9,10 @@ def purify_kwargs(kwargs):
 
 def action_by_type(obj):
     """Determine an action and a type for the given object if possible."""
-    kw = {}
     if isinstance(obj, bool):
         return {"action": ["store_true", "store_false"][obj]}
-    if isinstance(obj, list):
-        kw = {"action": "append"}
-    kw.update(get_type(obj))
+    kw = {"action": "append"} if isinstance(obj, list) else {}
+    kw |= get_type(obj)
     return kw
 
 

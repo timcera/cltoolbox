@@ -103,9 +103,8 @@ class SubProgram(object):
         #                 'help': "[optional, defaults to first date ...",
         #                 }
         #               )
-        doc_params = {}
-        for i in doc.params:
-            doc_params[i.arg_name] = (
+        doc_params = {
+            i.arg_name: (
                 [i.arg_name],
                 {
                     "metavar": None,
@@ -113,6 +112,8 @@ class SubProgram(object):
                     "help": i.description,
                 },
             )
+            for i in doc.params
+        }
 
         self._signatures[func.__name__] = inspect.signature(func)
 
@@ -145,7 +146,7 @@ class SubProgram(object):
 
             if param.kind is param.VAR_POSITIONAL:
                 kwargs = {"nargs": "*"}
-                kwargs.update(doc_params.get(name, (None, {}))[1])
+                kwargs |= doc_params.get(name, (None, {}))[1]
                 yield ([name], kwargs)
                 continue
 
@@ -155,11 +156,7 @@ class SubProgram(object):
 
             opts, meta = doc_params.get(name, ([], {}))
 
-            if param.annotation is not sig.empty:
-                meta["type"] = param.annotation
-            else:
-                meta["type"] = None
-
+            meta["type"] = param.annotation if param.annotation is not sig.empty else None
             override = overrides.get(name, ((), {}))
             yield merge(name, default, override, opts, meta)
 
