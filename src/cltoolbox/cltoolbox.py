@@ -51,7 +51,7 @@ def docstring(dstr):
     return doc, {k.replace("-", "_").lstrip("_"): v for k, v in doc_params.items()}
 
 
-class SubProgram(object):
+class SubProgram:
     def __init__(self, parser, signatures):
         self.parser = parser
         self._subparsers = self.parser.add_subparsers()
@@ -63,9 +63,7 @@ class SubProgram(object):
 
     # Add global script options.
     def option(self, *args, **kwd):
-        if not (args and all(
-            arg.startswith("-") for arg in args
-        )):
+        if not (args and all(arg.startswith("-") for arg in args)):
             raise AssertionError("Positional arguments not supported here")
         completer = kwd.pop("completer", None)
         arg = self.parser.add_argument(*args, **kwd)
@@ -175,7 +173,9 @@ class SubProgram(object):
 
             opts, meta = doc_params.get(name, ([], {}))
 
-            meta["type"] = param.annotation if param.annotation is not sig.empty else None
+            meta["type"] = (
+                param.annotation if param.annotation is not sig.empty else None
+            )
             override = overrides.get(name, ((), {}))
             yield merge(name, default, override, opts, meta)
 

@@ -1,7 +1,7 @@
 import pytest
 
-from cltoolbox.utils import action_by_type, ensure_dashes
 from cltoolbox.cltoolbox import docstring
+from cltoolbox.utils import action_by_type, ensure_dashes
 
 ACTION_BY_TYPE_CASES = [
     (True, {"action": "store_false"}),

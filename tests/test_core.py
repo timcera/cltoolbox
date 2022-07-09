@@ -61,7 +61,7 @@ def goo(pos, verbose=False, bar=None):
 
 
 @program.command
-def vara(pos, foo, spam=24, *vars):
+def vara(pos, foo, *vars, spam=24):
     """
     :param vars: Yeah, you got it right, the variable arguments.
     """
@@ -96,7 +96,7 @@ def more_power(x, y=2):
     :param x: Well, the base.
     :param -y: You got it, the exponent."""
 
-    return int(x)**int(y)
+    return int(x) ** int(y)
 
 
 @program.command
@@ -141,7 +141,7 @@ def dashes(a, b=5):
     :type a: int
     :param b: Yooo.
     :type b: int"""
-    return int(a)**int(b)
+    return int(a) ** int(b)
 
 
 @program.command
@@ -160,9 +160,9 @@ GENERIC_COMMANDS_CASES = [
     # http://bugs.python.org/issue15112
     # You cannot intermix positional and optional arguments for now.
     # ('vara 1 2 --spam 8 9 8', ['1', '2', 8, '9', '8']),
-    ("vara 1 2 4 5 --spam 8", [["1", "2", 8, "4", "5"]]),
-    ("vara --spam 8 1 2 4 5", [["1", "2", 8, "4", "5"]]),
-    ("vara 9 8 1 2 3 4", [["9", "8", 24, "1", "2", "3", "4"]]),
+    ("vara 1 2 4 5 --spam 8", [["1", "2", "4", "5", 8]]),
+    ("vara --spam 8 1 2 4 5", [["1", "2", "4", "5", 8]]),
+    ("vara 9 8 1 2 3 4", [["9", "8", "1", "2", "3", "4", 24]]),
     ("another 2", [["2", 42, False, None]]),
     ("another 2 --json", [["2", 42, True, None]]),
     ("another 2 --tomawk 1 --owl 3", [["2", 3, False, "1"]]),

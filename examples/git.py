@@ -14,9 +14,7 @@ def push(repository, all=False, dry_run=False, force=False, thin=False):
     :param thin: Use thin pack."""
 
     print(
-        "Pushing to {0}. All: {1}, dry run: {2}, force: {3}, thin: {4}".format(
-            repository, all, dry_run, force, thin
-        )
+        f"Pushing to {repository}. All: {all}, dry run: {dry_run}, force: {force}, thin: {thin}"
     )
 
 
