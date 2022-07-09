@@ -167,7 +167,7 @@ class Program(SubProgram):
         if version is not None:
             parser.add_argument("-v", "--version", action="version", version=version)
 
-        super(Program, self).__init__(parser, dict())
+        super(Program, self).__init__(parser, {})
         self._options = None
         self._current_command = None
 
