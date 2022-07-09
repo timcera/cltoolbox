@@ -12,7 +12,7 @@ def action_by_type(obj):
     if isinstance(obj, bool):
         return {"action": ["store_true", "store_false"][obj]}
     kw = {"action": "append"} if isinstance(obj, list) else {}
-    kw |= get_type(obj)
+    kw.update(get_type(obj))
     return kw
 
 

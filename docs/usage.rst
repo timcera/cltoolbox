@@ -3,17 +3,28 @@ Usage
 
 Defining commands
 -----------------
-A command is a function decorated with ``@command``. cltoolbox tries to extract as
-much as information as possible from the function's docstring and its
-signature.
+A command is a function decorated with ``@command``. cltoolbox extracts
+as much as information as possible from the function's docstring and
+function signature.
 
-The paragraph of the docstring is the command's **help**. For optimal results
-it shouldn't be longer than one line. The second paragraph contains the
-command's **description**, which can be as long as needed. If only one
-paragraph is present, it is used for both the help and the description.
-You can document the parameters with the common Sphinx's ``:param::`` syntax.
+The argparse library is configured by cltoolbox from three different sources.
 
-For example, this program generates the following helps::
+    1. Function signature
+        - each argument **name**
+        - each argument **type** (from type hints)
+    2. Function docstring (Sphinx, Google, Numpy, or epydoc formats)
+        - function **help** which is the first paragraph of the docstring and
+          shouldn't be longer than one line.
+        - function **description** is taken from the remaining paragraphs up
+          until the documentation of arguments.
+        - each argument help
+    3. The ``cltoolbox.arg`` decorator which overrides or appends to any of
+       the information found in the function signature or docstring.
+
+Note that the argument types in the function docstring are ignored and do not
+override the type hints found in the function signature.
+
+For example, this program uses Sphinx format::
 
     from cltoolbox import command, main
     
@@ -32,6 +43,9 @@ For example, this program generates the following helps::
     
     if __name__ == "__main__":
         main()
+
+The cltoolbox will take the previous function and docstring to create the
+following documentation available at the command line.
 
 .. code-block:: console
 
@@ -236,30 +250,32 @@ defaults:
     default_args.py: error: unrecognized arguments: 9 8
 
 To overcome this, cltoolbox allows you to specify positional arguments' types in
-the docstring, as explained in the next section.
+the type hints, as explained in the next section.
 
 
-Adding *type* and *metavar* in the docstring
---------------------------------------------
-This is especially useful for positional arguments, but it is usually used for
-all type of arguments.  The type is taken from the appropriate place in the
-docstring style that you are using.
+Adding *type*
+-------------
+This is especially useful for positional arguments, but it can be used for
+all type of arguments.
 
-cltoolbox also adds ``<type>`` as a metavar.
 
-Actual usage::
+Adding *type* in the signature
+------------------------------
+The cltoolbox can use type annotations to convert argument types.
+
+Simple usage::
 
     from cltoolbox import command, main, arg
-    
-    
+   
+
     @command
     @arg("mod", "--mod", "-m")
-    def pow(a, b, mod=None):
+    def pow(a:float, b:float, mod:int=None):
         """Mimic Python's pow() function.
     
-        :param float a: The base.
-        :param float b: The exponent.
-        :param int mod: Modulus."""
+        :param a: The base.
+        :param b: The exponent.
+        :param mod: Modulus."""
     
         if mod is not None:
             print((a ** b) % mod)
@@ -296,17 +312,14 @@ Actual usage::
     $ python types.py pow 4.5 8.3
     264036.437449
 
+Since type annotations can be any callable, this allows more flexibility
+to convert what is given on the command line::
+
 .. code-block:: console
 
     $ python types.py pow 5 8 -m 8
     1.0
 
-
-Adding *type* in the signature
-------------------------------
-If running Python 3, cltoolbox can use type annotations to convert argument types.
-Since type annotations can be any callable, this allows more flexibility than
-the hard-coded list of types permitted by the docstring method::
 
     from cltoolbox import command, main
 
@@ -427,12 +440,12 @@ The ANSI formatter class has to be imported from cltoolbox and used as follows::
     from cltoolbox.rst_text_formatter import RSTHelpFormatter
 
     @command(formatter_class=RSTHelpFormatter)
-    def pow(a, b, mod=None):
+    def pow(a:float, b:float, mod:int=None):
         '''Mimic Python's pow() function.
 
-        :param a <float>: The base.
-        :param b <float>: The exponent.
-        :param -m, --mod <int>: Modulus.'''
+        :param a: The base.
+        :param b: The exponent.
+        :param mod: Modulus.'''
 
         if mod is not None:
             print((a ** b) % mod)

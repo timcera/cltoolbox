@@ -15,6 +15,42 @@ _POSITIONAL = type("_positional", (object,), {})
 _DISPATCH_TO = "_dispatch_to"
 
 
+def docstring(dstr):
+    doc = parse(dstr)
+
+    # Example entry in doc_parms:
+    #
+    # 'start_date': (['start_date'],
+    #                {'metavar': None,
+    #                 'type': <class 'str'>,
+    #                 'help': "[optional, defaults to first date ...",
+    #                 }
+    #               )
+    doc_params = {
+        i.arg_name: (
+            [i.arg_name],
+            {
+                "metavar": None,
+                "type": None,
+                "help": i.description,
+                "default": i.default,
+            },
+        )
+        for i in doc.params
+    }
+
+    if not doc.long_description:
+        doc.long_description = doc.short_description
+
+    if doc.short_description is None:
+        doc.short_description = ""
+
+    if doc.long_description is None:
+        doc.long_description = ""
+
+    return doc, {k.replace("-", "_").lstrip("_"): v for k, v in doc_params.items()}
+
+
 class SubProgram(object):
     def __init__(self, parser, signatures):
         self.parser = parser
@@ -86,7 +122,7 @@ class SubProgram(object):
         name = name or func.__name__
         doc = f"{(inspect.getdoc(func) or '').strip()}\n"
 
-        doc = parse(doc)
+        doc, doc_params = docstring(doc)
 
         cmd_help, cmd_desc = doc.short_description, doc.long_description
         if cmd_desc is None:
@@ -94,26 +130,6 @@ class SubProgram(object):
         subparser = self._subparsers.add_parser(
             name, help=cmd_help or None, description=cmd_desc or None, **kwargs
         )
-
-        # Example entry in doc_parms:
-        #
-        # 'start_date': (['start_date'],
-        #                {'metavar': None,
-        #                 'type': <class 'str'>,
-        #                 'help': "[optional, defaults to first date ...",
-        #                 }
-        #               )
-        doc_params = {
-            i.arg_name: (
-                [i.arg_name],
-                {
-                    "metavar": None,
-                    "type": None,
-                    "help": i.description,
-                },
-            )
-            for i in doc.params
-        }
 
         self._signatures[func.__name__] = inspect.signature(func)
 
@@ -146,7 +162,7 @@ class SubProgram(object):
 
             if param.kind is param.VAR_POSITIONAL:
                 kwargs = {"nargs": "*"}
-                kwargs |= doc_params.get(name, (None, {}))[1]
+                kwargs.update(doc_params.get(name, (None, {}))[1])
                 yield ([name], kwargs)
                 continue
 

@@ -12,13 +12,13 @@ def rest_add(a, b):
     The sum of two numbers.
 
     :param a: The first number
-    :type a: ```int or float```
+    :type a: int, float
 
     :param b: The second number
-    :type b: ```int or float```
+    :type b: int, float
 
     :returns: the summation of the two inputs
-    :rtype: ```int or float```
+    :rtype: int, float
     """
     return add(a, b)
 
@@ -26,15 +26,17 @@ def rest_add(a, b):
 def numpy_add(a, b):
     """The sum of two numbers.
 
-    a : int or float
+    Parameters
+    ----------
+    a : int, float
         The first number.
 
-    b : int or float
+    b : int, float
         The second number.
 
     Returns
     -------
-    int or float
+    int, float
         The summation of the two inputs.
     """
     return add(a, b)
@@ -44,11 +46,11 @@ def google_add(a, b):
     """The sum of two numbers.
 
     Args:
-        a (int or float): The first number.
-        b (int or float): The second number.
+        a (int, float): The first number.
+        b (int, float): The second number.
 
     Returns:
-        int or float: The summation of the two inputs.
+        int, float: The summation of the two inputs.
     """
     return add(a, b)
 
@@ -84,8 +86,7 @@ class NoDecoratorTest(TestCase):
         signatures = []
         choices = []
         for f in all_funcs:
-            doctype = f.__name__.split("_")[0]
-            self.program.command(doctype=doctype)(f)
+            self.program.command()(f)
             signatures.append(self.program._signatures[f.__name__])
             choices.append(self.program._subparsers.choices[f.__name__])
 

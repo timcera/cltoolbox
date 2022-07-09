@@ -73,9 +73,9 @@ def another(baw, owl=42, json=False, tomawk=None):
     """This yet another example showcasing the power of CLtoolbox!
 
     :param baw: That's the positional argument, obviously.
-    :param -o, --owl: Yeah, I know, this is too much.
-    :param -j, --json: In case you want to pipe it through something.
-    :param -t, --tomawk: Well, in this case -t isn't for time."""
+    :param --owl: Yeah, I know, this is too much.
+    :param --json: In case you want to pipe it through something.
+    :param --tomawk: Well, in this case -t isn't for time."""
     pass
 
 
@@ -93,10 +93,10 @@ def power(x, y=2):
 def more_power(x, y=2):
     """This one really shows off complete power.
 
-    :param x <int>: Well, the base.
-    :param -y <int>: You got it, the exponent."""
+    :param x: Well, the base.
+    :param -y: You got it, the exponent."""
 
-    return x**y
+    return int(x)**int(y)
 
 
 @program.command
@@ -104,7 +104,7 @@ def repeat(what, times=10):
     """Getting types from annotations.
 
     :param what: what to repeat.
-    :param -t, --times: how many times to repeat."""
+    :param --times: how many times to repeat."""
 
     return what * times
 
@@ -137,9 +137,11 @@ def overriding(x, y=4):
 def dashes(a, b=5):
     """Usual command help.
 
-    :param a <int>: A help obviously.
-    :param b <int>: Yooo."""
-    return a**b
+    :param a: A help obviously.
+    :type a: int
+    :param b: Yooo.
+    :type b: int"""
+    return int(a)**int(b)
 
 
 @program.command
@@ -162,19 +164,19 @@ GENERIC_COMMANDS_CASES = [
     ("vara --spam 8 1 2 4 5", [["1", "2", 8, "4", "5"]]),
     ("vara 9 8 1 2 3 4", [["9", "8", 24, "1", "2", "3", "4"]]),
     ("another 2", [["2", 42, False, None]]),
-    ("another 2 -j", [["2", 42, True, None]]),
-    ("another 2 -t 1 -o 3", [["2", 3, False, "1"]]),
+    ("another 2 --json", [["2", 42, True, None]]),
+    ("another 2 --tomawk 1 --owl 3", [["2", 3, False, "1"]]),
     ("another 2 --owl 89 --tomawk 98", [["2", 89, False, "98"]]),
-    ("another 2 --json -o 1", [["2", 1, True, None]]),
+    ("another 2 --json --owl 1", [["2", 1, True, None]]),
     ("another 3 --owl 8 --json --tomawk 8", [["3", 8, True, "8"]]),
     ("alias 5 -b 9", [["5", 9], "analiased"]),
-    ("more-power 9 -y 2", [[9, 2], "more_power"]),
+    ("more-power 9 -y 2", [["9", 2], "more_power"]),
     ("more-powerful 9 -y 3", [[9, 3], "more_power_2"]),
     ("more-powerful 9 --epsilon 3", [[9, 3], "more_power_2"]),
     ("overriding 2", [[2, 4]]),
     ("overriding 2 -y 7", [[2, 7]]),
-    ("dashes 2", [[2, 5]]),
-    ("dashes 8 -b 7", [[8, 7]]),
+    ("dashes 2", [["2", 5]]),
+    ("dashes 8 -b 7", [["8", 7]]),
     ("append", [[[]]]),
     ("append --acc 2", [[["2"]]]),
     ("append --acc 2 --acc 3", [[["2", "3"]]]),
@@ -203,7 +205,7 @@ PROGRAM_EXECUTE_CASES = [
     ("dashes 2", 32),
     ("dashes 7 -b 3", 343),
     ("repeat a", "aaaaaaaaaa"),
-    ("repeat a -t 5", "aaaaa"),
+    ("repeat a --times 5", "aaaaa"),
 ]
 
 
