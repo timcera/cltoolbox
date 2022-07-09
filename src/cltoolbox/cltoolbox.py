@@ -27,15 +27,17 @@ class SubProgram(object):
 
     # Add global script options.
     def option(self, *args, **kwd):
-        assert args and all(
+        if not (args and all(
             arg.startswith("-") for arg in args
-        ), "Positional arguments not supported here"
+        )):
+            raise AssertionError("Positional arguments not supported here")
         completer = kwd.pop("completer", None)
         arg = self.parser.add_argument(*args, **kwd)
         if completer is not None:
             arg.completer = completer
         # do not attempt to shadow existing attributes
-        assert not hasattr(self, arg.dest), f"Invalid option name: {arg.dest}"
+        if hasattr(self, arg.dest):
+            raise AssertionError(f"Invalid option name: {arg.dest}")
         return arg
 
     def add_subprog(self, name, **kwd):
@@ -45,7 +47,8 @@ class SubProgram(object):
             self._subparsers.add_parser(name, help=helpstr, **kwd), self._signatures
         )
         # do not attempt to overwrite existing attributes
-        assert not hasattr(self, name), f"Invalid sub-prog name: {name}"
+        if hasattr(self, name):
+            raise AssertionError(f"Invalid sub-prog name: {name}")
         setattr(self, name, prog)
         return prog
 
