@@ -5,10 +5,10 @@
 cltoolbox
 =========
 
-This is the home page for cltoolbox.  cltoolbox is a command line program and
-Python library to work with time-series.
+This is the home page for cltoolbox.  cltoolbox is a Python library to easily
+setup and use a command line interface (CLI) for a Python script.
 
-cltoolbox should work with Python 3.6+.
+cltoolbox should work with Python 3.7+.
 
 Table of Contents
 -----------------
