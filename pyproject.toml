@@ -1,10 +1,79 @@
+[project]
+name = "cltoolbox"
+authors = [
+    {name = "Tim Cera", email = "tim@cerazone.net"}
+    ]
+readme = "README.rst"
+dynamic = ["version"]
+description = "Python library for creating and manipulating CLIs"
+requires-python = ">=3.7.1"
+dependencies = [
+    "docstring_parser",
+    ]
+license = {file = "LICENSE.txt"}
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: Developers",
+    "Environment :: Console",
+    "License :: OSI Approved :: BSD License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    ]
+keywords = ["python",
+            "cli",
+            "argparse",
+            "arguments",
+            "command line",
+            "keyword arguments",
+            "docstring",
+            ]
 
-[tool.check-manifest]
-ignore = ["docs/_function_autosummary/*",
-          ".coverage",
-          ".deepsource.toml",
-          ".ipynb_checkpoints/*"]
+[project.optional-dependencies]
+dev = [
+    "black",
+    "cleanpy",
+    "twine",
+    "pytest",
+    "coverage",
+    "flake8",
+    "pytest-cov",
+    "pytest-mpl",
+    "pre-commit",
+    "black-nbconvert",
+    "blacken-docs",
+    "velin",
+    "isort",
+    "pyupgrade",
+    "commitizen",
+    ]
 
+[project_urls]
+documentation = "https://timcera.bitbucket.io/cltoolbox/docs/index.html#cltoolbox-documentation"
+github = "https://github.com/timcera/cltoolbox"
+bitbucket = "https://bitbucket.org/timcera/cltoolbox/src/main/"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+version = {file = "VERSION"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["examples*", "tools*", "docs*", "cltoolbox.tests*"]
+
+[build-system]
+requires = [
+    "setuptools",
+    "wheel",
+]
+build-backend = "setuptools.build_meta"
 
 [tool.commitizen]
 name = "cz_conventional_commits"
@@ -12,17 +81,3 @@ version = "1.2.0"
 tag_format = "$version"
 version_files = ["VERSION"]
 update_changelog_on_bump = true
-
-
-[build-system]
-requires = [
-    "setuptools",
-    "oldest-supported-numpy",
-]
-build-backend = "setuptools.build_meta"
-
-# This can't be specified in pyproject.toml because can't figure out how to add
-# toml support to coverage in github actions, but the equivalent setting can be
-# in setup.cfg.
-# [tool.coverage.run]
-# relative_files = true

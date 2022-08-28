@@ -2,5 +2,5 @@ Authors
 =======
 Tim Cera, P.E. [tim@cerazone.net]
 
-Significant portions based on mando.
+Portions based on mando by Michele Lacchia.
 https://github.com/rubik/mando
