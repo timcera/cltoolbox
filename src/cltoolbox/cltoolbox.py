@@ -163,7 +163,7 @@ class SubProgram:
 
             if param.kind is param.VAR_POSITIONAL:
                 kwargs = {"nargs": "*"}
-                kwargs.update(doc_params.get(name, (None, {}))[1])
+                kwargs |= doc_params.get(name, (None, {}))[1]
                 yield ([name], kwargs)
                 continue
 

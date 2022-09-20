@@ -58,7 +58,7 @@ a_2 = {"j": (["-j"], {"help": "Woow"})}
 a_3 = {"noun": (["--noun"], {"help": "cat"})}
 a_all = {}
 for a in (a_1, a_2, a_3):
-    a_all.update(a)
+    a_all |= a
 
 
 FIND_PARAM_CASES = [
