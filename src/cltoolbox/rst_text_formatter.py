@@ -10,9 +10,7 @@ def b(s):
 
 
 class RSTHelpFormatter(argparse.RawTextHelpFormatter):
-    """
-    Custom formatter class that is capable of interpreting ReST.
-    """
+    """Custom formatter class that is capable of interpreting ReST."""
 
     def format_help(self):
         ret = rst2ansi(b(super(RSTHelpFormatter, self).format_help()) + b("\n"))

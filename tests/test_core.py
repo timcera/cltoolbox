@@ -30,9 +30,7 @@ program.sub.option(
 
 @program.command
 def getopt(name):
-    """
-    :param name: Name of option to return.
-    """
+    """:param name: Name of option to return."""
     # also allows for: Script.foo
     return getattr(program, name)
 
@@ -62,9 +60,7 @@ def goo(pos, verbose=False, bar=None):
 
 @program.command
 def vara(pos, foo, *vars, spam=24):
-    """
-    :param vars: Yeah, you got it right, the variable arguments.
-    """
+    """:param vars: Yeah, you got it right, the variable arguments."""
     pass
 
 
