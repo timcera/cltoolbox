@@ -10,7 +10,6 @@ def cmd(foo, bar):
 
     :param foo: Well, the first arg.
     :param bar: Obviously the second arg. Nonsense."""
-
     print(foo, bar)
 
 

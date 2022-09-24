@@ -17,7 +17,6 @@ def find(path, pattern, maxdepth=None, P=False, D=None):
     :param int maxdepth: Descend at most <levels>.
     :param P: Do not follow symlinks.
     :param D: Debug option, print diagnostic information."""
-
     if maxdepth is not None and maxdepth < 2:
         print("If you choose maxdepth, at least set it > 1")
     if P:
