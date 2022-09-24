@@ -62,7 +62,6 @@ positional arguments:
 @pytest.mark.parametrize("args,result", GOOGLE_DOCSTRING_HELP_CASES)
 def test_google_docstring_help(args, result):
     args = args.split()
-    with pytest.raises(SystemExit):
-        with capture.capture_sys_output() as (stdout, stderr):
-            program.execute(args)
+    with pytest.raises(SystemExit), capture.capture_sys_output() as (stdout, stderr):
+        program.execute(args)
     assert result == stdout.getvalue()
