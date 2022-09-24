@@ -98,7 +98,8 @@ class SubProgram:
 
         return _command
 
-    def arg(self, param, *args, **kwargs):
+    @staticmethod
+    def arg(param, *args, **kwargs):
         """A decorator to override the parameters extracted from the docstring
         or to add new ones.
 
