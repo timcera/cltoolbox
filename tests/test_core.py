@@ -61,7 +61,6 @@ def goo(pos, verbose=False, bar=None):
 @program.command
 def vara(pos, foo, *vars, spam=24):
     """:param vars: Yeah, you got it right, the variable arguments."""
-    pass
 
 
 @program.command
@@ -72,7 +71,6 @@ def another(baw, owl=42, json=False, tomawk=None):
     :param --owl: Yeah, I know, this is too much.
     :param --json: In case you want to pipe it through something.
     :param --tomawk: Well, in this case -t isn't for time."""
-    pass
 
 
 @program.command("alias")
