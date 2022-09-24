@@ -13,7 +13,6 @@ def push(repository, all=False, dry_run=False, force=False, thin=False):
     :param dry_run: Dry run.
     :param force: Force updates.
     :param thin: Use thin pack."""
-
     print(
         f"Pushing to {repository}. All: {all}, dry run: {dry_run}, force: {force}, thin: {thin}"
     )

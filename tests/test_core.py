@@ -95,7 +95,6 @@ def more_power(x, y=2):
 
     :param x: Well, the base.
     :param -y: You got it, the exponent."""
-
     return int(x) ** int(y)
 
 
@@ -105,7 +104,6 @@ def repeat(what, times=10):
 
     :param what: what to repeat.
     :param --times: how many times to repeat."""
-
     return what * times
 
 
@@ -129,7 +127,6 @@ def overriding(x, y=4):
 
     :param x <str>: This is so wroong!!! Let's hope it gets overridden by @arg.
     :param -y <metavar>: This too!!"""
-
     return x - y
 
 

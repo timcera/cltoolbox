@@ -119,7 +119,6 @@ class SubProgram:
         :param func: The function to analyze.
         :param name: If given, a different name for the command. The default
             one is ``func.__name__``."""
-
         name = name or func.__name__
         doc = f"{(inspect.getdoc(func) or '').strip()}\n"
 
@@ -155,7 +154,6 @@ class SubProgram:
         :param func: The function to analyze.
         :param doc_params: Parameters extracted from docstring.
         """
-
         # prevent unnecessary inspect calls
         sig = self._signatures.get(func.__name__) or inspect.signature(func)
         overrides = getattr(func, "_argopts", {})

@@ -10,7 +10,6 @@ def pow(a, b, mod=None):
     :param float a: The base.
     :param float b: The exponent.
     :param int mod: Modulus."""
-
     if mod is not None:
         print((a**b) % mod)
     else:
