@@ -138,7 +138,9 @@ def dashes(a, b=5):
 
 
 @program.command
-def append(acc=[]):
+def append(acc=None):
+    if acc is None:
+        acc = []
     return acc
 
 
