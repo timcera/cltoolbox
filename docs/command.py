@@ -9,7 +9,8 @@ def cmd(foo, bar):
     And here the description of this useless command.
 
     :param foo: Well, the first arg.
-    :param bar: Obviously the second arg. Nonsense."""
+    :param bar: Obviously the second arg. Nonsense.
+    """
     print(foo, bar)
 
 

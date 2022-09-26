@@ -55,12 +55,17 @@ def powOfSub2_impl(b, e):
 
 @program.command
 def goo(pos, verbose=False, bar=None):
-    pass
+    """
+    Do nothing function for testing.
+    :param pos: Positional argument.
+    :param verbose: Verbose flag.
+    :param bar: Bar option.
+    """
 
 
 @program.command
-def vara(pos, foo, *vars, spam=24):
-    """:param vars: Yeah, you got it right, the variable arguments."""
+def vara(pos, foo, *varargs, spam=24):
+    """:param varargs: Yeah, you got it right, the variable arguments."""
 
 
 @program.command
@@ -70,12 +75,17 @@ def another(baw, owl=42, json=False, tomawk=None):
     :param baw: That's the positional argument, obviously.
     :param --owl: Yeah, I know, this is too much.
     :param --json: In case you want to pipe it through something.
-    :param --tomawk: Well, in this case -t isn't for time."""
+    :param --tomawk: Well, in this case -t isn't for time.
+    """
 
 
 @program.command("alias")
 def analiased(a, b=4):
-    pass
+    """
+    Do nothing function for testing.
+    :param a: A.
+    :param b: B.
+    """
 
 
 @program.command
@@ -88,7 +98,8 @@ def more_power(x, y=2):
     """This one really shows off complete power.
 
     :param x: Well, the base.
-    :param -y: You got it, the exponent."""
+    :param -y: You got it, the exponent.
+    """
     return int(x) ** int(y)
 
 
@@ -97,7 +108,8 @@ def repeat(what, times=10):
     """Getting types from annotations.
 
     :param what: what to repeat.
-    :param --times: how many times to repeat."""
+    :param --times: how many times to repeat.
+    """
     return what * times
 
 
@@ -120,7 +132,8 @@ def overriding(x, y=4):
     """Yoo an override test.
 
     :param x <str>: This is so wroong!!! Let's hope it gets overridden by @arg.
-    :param -y <metavar>: This too!!"""
+    :param -y <metavar>: This too!!
+    """
     return x - y
 
 
@@ -131,14 +144,14 @@ def dashes(a, b=5):
     :param a: A help obviously.
     :type a: int
     :param b: Yooo.
-    :type b: int"""
+    :type b: int
+    """
     return int(a) ** int(b)
 
 
 @program.command
-def append(acc=None):
-    if acc is None:
-        acc = []
+def append(acc=[]):
+    """Have to use a list as default value for append tests to pass."""
     return acc
 
 

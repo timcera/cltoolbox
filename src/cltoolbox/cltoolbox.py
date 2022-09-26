@@ -7,7 +7,7 @@ import argparse
 import inspect
 import sys
 
-from docstring_parser import parse
+from docstring_parser import parse as ds_parse
 
 from cltoolbox.utils import action_by_type, ensure_dashes, purify_kwargs
 
@@ -16,16 +16,45 @@ _DISPATCH_TO = "_dispatch_to"
 
 
 def docstring(dstr):
-    doc = parse(dstr)
+    """Normalizes information from the docstring to be used by cltoolbox.
 
-    # Example entry in doc_parms:
-    #
-    # 'start_date': (['start_date'],
-    #                {'metavar': None,
-    #                 'type': <class 'str'>,
-    #                 'help': "[optional, defaults to first date ...",
-    #                 }
-    #               )
+    Parameters
+    ----------
+    dstr :
+        The docstring to parse.
+
+    Returns
+    -------
+    tup :
+        A tuple of (parsed_docstring_dict, kwargs_dict) extracted from the
+        docstring.
+
+        Example entry in the parsed_docstring_dict:
+
+        {...,
+        "start_date": {"description": "[optional, defaults to first date ...",
+                       "default": '2018-01-01',
+                       "arg_name": "start_date",
+                       "long_description": None,
+                       "short_description": "[optional, defaults to first date ...",
+                       ...,
+                       }
+        ...,}
+
+        Example entry in returned kwargs_dict dictionary:
+
+        {...,
+        'start_date': (['start_date'],
+                       {'metavar': None,
+                        'type': <class 'str'>,
+                        'help': "[optional, defaults to first date ...",
+                        'default': '2018-01-01',
+                        }
+                      ),
+        ...,}
+    """
+    doc = ds_parse(dstr)
+
     doc_params = {
         i.arg_name: (
             [i.arg_name],
@@ -89,7 +118,8 @@ class SubProgram:
     def command(self, *args, **kwargs):
         """A decorator to convert a function into a command. It can be applied
         as ``@command`` or as ``@command(new_name)``, specifying an alternative
-        name for the command (default one is ``func.__name__``)."""
+        name for the command (default one is ``func.__name__``).
+        """
         if len(args) == 1 and callable(args[0]):
             return self._generate_command(args[0])
 
@@ -103,13 +133,22 @@ class SubProgram:
         """A decorator to override the parameters extracted from the docstring
         or to add new ones.
 
-        :param param: The parameter's name. It must be among the function's
-            arguments names."""
+        Parameters
+        ----------
+        param :
+            The parameter's name. It must be among the function's arguments
+            names.
+
+        Returns
+        -------
+        func :
+            A decorator returns a function.
+        """
 
         def wrapper(func):
-            if not hasattr(func, "_argopts"):
-                func._argopts = {}
-            func._argopts[param] = (args, kwargs)
+            if not hasattr(func, "argopts"):
+                func.argopts = {}
+            func.argopts[param] = (args, kwargs)
             return func
 
         return wrapper
@@ -117,9 +156,21 @@ class SubProgram:
     def _generate_command(self, func, name=None, *args, **kwargs):
         """Generate argparse's subparser.
 
-        :param func: The function to analyze.
-        :param name: If given, a different name for the command. The default
-            one is ``func.__name__``."""
+        Parameters
+        ----------
+        func :
+            The function to analyze.
+        name :
+            If given, a different name for the command. The default
+            one is ``func.__name__``.
+
+        Returns
+        -------
+        func :
+            The function itself with modified args and kwargs after generating
+            argparse's subparser.
+
+        """
         name = name or func.__name__
         doc = f"{(inspect.getdoc(func) or '').strip()}\n"
 
@@ -152,12 +203,22 @@ class SubProgram:
         Merge default arguments, override arguments (with @arg) and parameters
         extracted from the docstring.
 
-        :param func: The function to analyze.
-        :param doc_params: Parameters extracted from docstring.
+        Parameters
+        ----------
+        func :
+            The function to analyze.
+        doc_params :
+            Parameters extracted from docstring.
+
+        Yields
+        ------
+        args :
+            Parameter names, kwargs, and default values from the function and
+            docstring.
         """
         # prevent unnecessary inspect calls
         sig = self._signatures.get(func.__name__) or inspect.signature(func)
-        overrides = getattr(func, "_argopts", {})
+        overrides = getattr(func, "argopts", {})
         for name, param in sig.parameters.items():
 
             if param.kind is param.VAR_POSITIONAL:
@@ -194,11 +255,22 @@ class Program(SubProgram):
         return getattr(self._options, attr)
 
     def parse(self, args):
-        """Parse the given arguments and return a tuple ``(command, args)``,
-        where ``args`` is a list consisting of all arguments. The command can
+        """Parse the given arguments and return a tuple ``(command, args)``.
+
+        The ``args`` is a list consisting of all arguments. The command can
         then be called as ``command(*args)``.
 
-        :param args: The arguments to parse."""
+        Parameters
+        ----------
+        args :
+            The arguments to parse.
+
+        Returns
+        -------
+        tup:
+            A tuple of ``(command, args)``.
+
+        """
         try:
             # run completion handler before parsing
             import argcomplete  # type: ignore
@@ -227,7 +299,16 @@ class Program(SubProgram):
     def execute(self, args):
         """Parse the arguments and execute the resulting command.
 
-        :param args: The arguments to parse."""
+        Parameters
+        ----------
+        args :
+            The arguments to parse.
+
+        Returns
+        -------
+        ret :
+            The return value of the command run with `args`.
+        """
         command, a = self.parse(args)
         self._current_command = command.__name__
         return command(*a)
@@ -240,11 +321,24 @@ class Program(SubProgram):
 def merge(arg, default, override, args, kwargs):
     """Merge all the possible arguments into a tuple and a dictionary.
 
-    :param arg: The argument's name.
-    :param default: The argument's default value or an instance of _POSITIONAL.
-    :param override: A tuple containing (args, kwargs) given to @arg.
-    :param args: The arguments extracted from the docstring.
-    :param kwargs: The keyword arguments extracted from the docstring."""
+    Parameters
+    ----------
+    arg :
+        The argument's name.
+    default :
+        The argument's default value or an instance of _POSITIONAL.
+    override :
+        A tuple containing (args, kwargs) given to @arg.
+    args :
+        The arguments extracted from the docstring.
+    kwargs :
+        The keyword arguments extracted from the docstring.
+
+    Returns
+    -------
+    tup :
+        A tuple of (args, kwargs) to be passed to add_argument.
+    """
     opts = [arg]
     if not isinstance(default, _POSITIONAL):
         opts = list(ensure_dashes(args or opts))

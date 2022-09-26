@@ -9,6 +9,7 @@ description = "Python library for creating and manipulating CLIs"
 requires-python = ">=3.7.1"
 dependencies = [
     "docstring_parser",
+    "rst2ansi",
     ]
 license = {file = "LICENSE.txt"}
 classifiers = [

@@ -9,7 +9,8 @@ def ex(foo, b=None, spam=None):
 
     :param foo: Bla bla.
     :param b: A little flag.
-    :param spam: Spam spam spam spam."""
+    :param spam: Spam spam spam spam.
+    """
     print((foo, b, spam))
 
 

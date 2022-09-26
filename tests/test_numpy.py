@@ -67,6 +67,6 @@ positional arguments:
 @pytest.mark.parametrize("args,result", NUMPY_DOCSTRING_HELP_CASES)
 def test_numpy_docstring_help(args, result):
     args = args.split()
-    with pytest.raises(SystemExit), capture.capture_sys_output() as (stdout, stderr):
+    with pytest.raises(SystemExit), capture.capture_sys_output() as (stdout, _):
         program.execute(args)
     assert result == stdout.getvalue()
