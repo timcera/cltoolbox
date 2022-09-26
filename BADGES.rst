@@ -4,7 +4,7 @@
     :height: 20
 
 .. image:: https://img.shields.io/coveralls/github/timcera/cltoolbox
-    :alt: Test Coverage    
+    :alt: Test Coverage
     :target: https://coveralls.io/r/timcera/cltoolbox?branch=master
     :height: 20
 
@@ -13,8 +13,8 @@
     :target: https://pypi.python.org/pypi/cltoolbox
     :height: 20
 
-.. image:: http://img.shields.io/pypi/l/cltoolbox.svg
-    :alt: BSD-3 clause license
+.. image:: https://img.shields.io/badge/license-BSD--3--Clause-green
+    :alt: BSD-3-Clause
     :target: https://pypi.python.org/pypi/cltoolbox/
     :height: 20
 

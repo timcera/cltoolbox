@@ -1,13 +1,10 @@
-cltoolbox: Easy Command Line Interfaces
-=======================================
-
 .. image:: https://github.com/timcera/cltoolbox/actions/workflows/python-package.yml/badge.svg
     :alt: Tests
     :target: https://github.com/timcera/cltoolbox/actions/workflows/python-package.yml
     :height: 20
 
 .. image:: https://img.shields.io/coveralls/github/timcera/cltoolbox
-    :alt: Test Coverage    
+    :alt: Test Coverage
     :target: https://coveralls.io/r/timcera/cltoolbox?branch=master
     :height: 20
 
@@ -16,8 +13,8 @@ cltoolbox: Easy Command Line Interfaces
     :target: https://pypi.python.org/pypi/cltoolbox
     :height: 20
 
-.. image:: http://img.shields.io/pypi/l/cltoolbox.svg
-    :alt: BSD-3 clause license
+.. image:: https://img.shields.io/badge/license-BSD--3--Clause-green
+    :alt: BSD-3-Clause
     :target: https://pypi.python.org/pypi/cltoolbox/
     :height: 20
 
@@ -31,6 +28,8 @@ cltoolbox: Easy Command Line Interfaces
     :target: https://pypi.org/project/cltoolbox/
     :height: 20
 
+cltoolbox: Easy Command Line Interfaces
+=======================================
 cltoolbox is a wrapper around ``argparse``, and allows you to write complete CLI
 applications in seconds using a simple decorator.
 
