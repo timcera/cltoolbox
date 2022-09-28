@@ -10,11 +10,11 @@
 
 .. image:: https://img.shields.io/pypi/v/cltoolbox.svg
     :alt: Latest release
-    :target: https://pypi.python.org/pypi/cltoolbox
+    :target: https://pypi.python.org/pypi/cltoolbox/
     :height: 20
 
-.. image:: https://img.shields.io/badge/license-BSD--3--Clause-green
-    :alt: BSD-3-Clause
+.. image:: http://img.shields.io/pypi/l/cltoolbox.svg
+    :alt: BSD-3 clause license
     :target: https://pypi.python.org/pypi/cltoolbox/
     :height: 20
 

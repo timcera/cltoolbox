@@ -1,24 +1,23 @@
 [project]
 name = "cltoolbox"
-authors = [
-    {name = "Tim Cera", email = "tim@cerazone.net"}
-    ]
-readme = "README.rst"
-dynamic = ["version"]
+dynamic = ["readme", "version"]
 description = "Python library for creating and manipulating CLIs"
-requires-python = ">=3.7.1"
 dependencies = [
     "docstring_parser",
     "rst2ansi",
     "docutils",
     ]
-license = {file = "LICENSE.txt"}
+license = {text = "BSD-3-Clause and MIT"}
+authors = [
+    {name = "Tim Cera", email = "tim@cerazone.net"}
+    ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: End Users/Desktop",
     "Intended Audience :: Developers",
     "Environment :: Console",
     "License :: OSI Approved :: BSD License",
+    "License :: OSI Approved :: MIT",
     "Natural Language :: English",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3.7",
@@ -61,9 +60,11 @@ github = "https://github.com/timcera/cltoolbox"
 bitbucket = "https://bitbucket.org/timcera/cltoolbox/src/main/"
 
 [tool.setuptools]
+license-files = ["LICENSE.txt"]
 include-package-data = true
 
 [tool.setuptools.dynamic]
+readme = {file = "README.rst"}
 version = {file = "VERSION"}
 
 [tool.setuptools.packages.find]
