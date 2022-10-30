@@ -1,21 +1,13 @@
-# -*- coding: utf-8 -*-
+"""A simple class that wraps argparse help with rst2ansi."""
 import argparse
 import sys
 
 from rst2ansi import rst2ansi  # type: ignore
 
 
-def b(s):
-    return s.encode("utf-8")
-
-
 class RSTHelpFormatter(argparse.RawTextHelpFormatter):
     """Custom formatter class that is capable of interpreting ReST."""
 
     def format_help(self):
-        ret = rst2ansi(b(super(RSTHelpFormatter, self).format_help()) + b("\n"))
-        return ret.encode(sys.stdout.encoding, "replace").decode(sys.stdout.encoding)
-
-    def format_usage(self):
-        ret = rst2ansi(b(super(RSTHelpFormatter, self).format_usage()) + b("\n"))
+        ret = rst2ansi(bytes(super().format_help() + "\n", "utf-8"))
         return ret.encode(sys.stdout.encoding, "replace").decode(sys.stdout.encoding)

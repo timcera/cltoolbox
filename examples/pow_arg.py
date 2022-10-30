@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from cltoolbox import arg, command, main
 
 

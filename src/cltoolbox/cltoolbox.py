@@ -1,8 +1,11 @@
-# -*- coding: utf-8 -*-
 """Main module containing the class Program(), which allows the conversion from
 ordinary Python functions into commands for the command line. It uses
 :py:module:``argparse`` behind the scenes."""
 
+from contextlib import suppress
+
+with suppress(ImportError):
+    import argcomplete
 import argparse
 import inspect
 import sys
@@ -81,6 +84,8 @@ def docstring(dstr):
 
 
 class SubProgram:
+    """Base class for each sub-program."""
+
     def __init__(self, parser, signatures):
         self.parser = parser
         self._subparsers = self.parser.add_subparsers()
@@ -88,10 +93,11 @@ class SubProgram:
 
     @property
     def name(self):
+        """Returns the name of the SubProgram."""
         return self.parser.prog
 
-    # Add global script options.
     def option(self, *args, **kwd):
+        """Add global script options."""
         if not (args and all(arg.startswith("-") for arg in args)):
             raise AssertionError("Positional arguments not supported here")
         completer = kwd.pop("completer", None)
@@ -104,6 +110,7 @@ class SubProgram:
         return arg
 
     def add_subprog(self, name, **kwd):
+        """Add a sub-program entry into the Program."""
         # also always provide help= to fix missing entry in command list
         helpstr = kwd.pop("help", f"{name} subcommand")
         prog = SubProgram(
@@ -116,9 +123,11 @@ class SubProgram:
         return prog
 
     def command(self, *args, **kwargs):
-        """A decorator to convert a function into a command. It can be applied
-        as ``@command`` or as ``@command(new_name)``, specifying an alternative
-        name for the command (default one is ``func.__name__``).
+        """A decorator to convert a function into a command.
+
+        It can be applied as ``@command`` or as ``@command(new_name)``,
+        specifying an alternative name for the command (default new_name is
+        ``func.__name__``).
         """
         if len(args) == 1 and callable(args[0]):
             return self._generate_command(args[0])
@@ -130,14 +139,13 @@ class SubProgram:
 
     @staticmethod
     def arg(param, *args, **kwargs):
-        """A decorator to override the parameters extracted from the docstring
-        or to add new ones.
+        """Decorator replacing parameters from the docstring or add new ones.
 
         Parameters
         ----------
         param :
             The parameter's name. It must be among the function's arguments
-            names.
+            names to replace.
 
         Returns
         -------
@@ -169,7 +177,6 @@ class SubProgram:
         func :
             The function itself with modified args and kwargs after generating
             argparse's subparser.
-
         """
         name = name or func.__name__
         doc = f"{(inspect.getdoc(func) or '').strip()}\n"
@@ -185,12 +192,11 @@ class SubProgram:
 
         self._signatures[func.__name__] = inspect.signature(func)
 
-        for a, kw in self._analyze_func(func, doc_params):
-            completer = kw.pop("completer", None)
-            # if there is an "action", then can only have
-            # "option_strings", "dest", "default", "required", and "help"
-            # keywords.
-            arg = subparser.add_argument(*a, **purify_kwargs(kw))
+        for rargs, rkwds in self._analyze_func(func, doc_params):
+            completer = rkwds.pop("completer", None)
+            # if there is an "action", then can only have "option_strings",
+            # "dest", "default", "required", and "help" keywords.
+            arg = subparser.add_argument(*rargs, **purify_kwargs(rkwds))
             if completer is not None:
                 arg.completer = completer
 
@@ -241,12 +247,14 @@ class SubProgram:
 
 
 class Program(SubProgram):
+    """Class that contains all of the SubPrograms."""
+
     def __init__(self, prog=None, version=None, **kwargs):
         parser = argparse.ArgumentParser(prog, **kwargs)
         if version is not None:
             parser.add_argument("-v", "--version", action="version", version=version)
 
-        super(Program, self).__init__(parser, {})
+        super().__init__(parser, {})
         self._options = None
         self._current_command = None
 
@@ -271,14 +279,9 @@ class Program(SubProgram):
             A tuple of ``(command, args)``.
 
         """
-        try:
+        with suppress(ImportError):
             # run completion handler before parsing
-            import argcomplete  # type: ignore
-
             argcomplete.autocomplete(self.parser)
-        except ImportError:  # pragma: no cover
-            # ignore error if not installed
-            pass
 
         self._options = self.parser.parse_args(args)
         arg_map = self._options.__dict__
@@ -309,9 +312,9 @@ class Program(SubProgram):
         ret :
             The return value of the command run with `args`.
         """
-        command, a = self.parse(args)
+        command, real_args = self.parse(args)
         self._current_command = command.__name__
-        return command(*a)
+        return command(*real_args)
 
     def __call__(self):  # pragma: no cover
         """Parse ``sys.argv`` and execute the resulting command."""

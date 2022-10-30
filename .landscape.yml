@@ -1,3 +1,4 @@
+---
 strictness: high
 ignore_paths:
     - docs

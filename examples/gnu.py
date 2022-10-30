@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # gnu.py
 from cltoolbox import arg, command, main
 

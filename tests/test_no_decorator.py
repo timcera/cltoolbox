@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from itertools import tee
 from operator import add
 from unittest import TestCase

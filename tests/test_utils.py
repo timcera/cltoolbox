@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import pytest
 
 from cltoolbox.cltoolbox import docstring
@@ -10,9 +9,9 @@ ACTION_BY_TYPE_CASES = [
     ([], {"action": "append"}),
     ([1, False], {"action": "append"}),
     (None, {}),
-    (1, {"type": type(1)}),
-    (1.1, {"type": type(1.1)}),
-    ("1", {"type": type("1")}),
+    (1, {"type": int}),
+    (1.1, {"type": float}),
+    ("1", {"type": str}),
 ]
 
 
