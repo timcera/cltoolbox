@@ -279,7 +279,7 @@ class Program(SubProgram):
             A tuple of ``(command, args)``.
 
         """
-        with suppress(ImportError):
+        with suppress(NameError):
             # run completion handler before parsing
             argcomplete.autocomplete(self.parser)
 
