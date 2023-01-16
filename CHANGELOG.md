@@ -1,3 +1,15 @@
+## v1.3.3 (2023-01-16)
+
+### Fix
+
+- should be NameError rather than Import Error
+
+### Refactor
+
+- misc refactor
+
+## 1.3.2 (2022-09-28)
+
 ## 1.1.0 (2022-07-06)
 
 ### Feat
