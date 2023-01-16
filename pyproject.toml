@@ -1,6 +1,7 @@
 [build-system]
 requires = [
-    "setuptools",
+    "setuptools>=45",
+    "setuptools_scm[toml]>=6.2",
     "wheel",
 ]
 build-backend = "setuptools.build_meta"
@@ -76,6 +77,9 @@ tag_format = "v$version"
 version_files = ["VERSION"]
 update_changelog_on_bump = true
 
+[tool.isort]
+profile = "black"
+
 [tool.setuptools]
 license-files = ["LICENSE.txt"]
 include-package-data = true
@@ -88,5 +92,4 @@ version = {file = "VERSION"}
 where = ["src"]
 exclude = ["examples*", "tools*", "docs*", "cltoolbox.tests*"]
 
-[tool.isort]
-profile = "black"
+[tool.setuptools_scm]
