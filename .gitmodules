@@ -1,0 +1,3 @@
+[submodule "src/cltoolbox/python-rst2ansi"]
+	path = src/cltoolbox/python-rst2ansi
+	url = https://github.com/timcera/python-rst2ansi
