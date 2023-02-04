@@ -1,6 +1,7 @@
 """Main module containing the class Program(), which allows the conversion from
 ordinary Python functions into commands for the command line. It uses
-:py:module:``argparse`` behind the scenes."""
+:py:module:``argparse`` behind the scenes.
+"""
 
 from contextlib import suppress
 
@@ -133,6 +134,7 @@ class SubProgram:
             return self._generate_command(args[0])
 
         def _command(func):
+            """CLI command decorator."""
             return self._generate_command(func, *args, **kwargs)
 
         return _command
@@ -154,6 +156,7 @@ class SubProgram:
         """
 
         def wrapper(func):
+            """Replacing parameters from the docstring or add new ones."""
             if not hasattr(func, "argopts"):
                 func.argopts = {}
             func.argopts[param] = (args, kwargs)
