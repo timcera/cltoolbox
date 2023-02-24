@@ -29,7 +29,6 @@ def numpy_add(a, b):
     ----------
     a : int, float
         The first number.
-
     b : int, float
         The second number.
 

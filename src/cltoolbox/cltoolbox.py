@@ -24,7 +24,7 @@ def docstring(dstr):
 
     Parameters
     ----------
-    dstr :
+    dstr
         The docstring to parse.
 
     Returns
@@ -229,7 +229,6 @@ class SubProgram:
         sig = self._signatures.get(func.__name__) or inspect.signature(func)
         overrides = getattr(func, "argopts", {})
         for name, param in sig.parameters.items():
-
             if param.kind is param.VAR_POSITIONAL:
                 kwargs = {"nargs": "*"}
                 kwargs.update(doc_params.get(name, (None, {}))[1])
@@ -273,7 +272,7 @@ class Program(SubProgram):
 
         Parameters
         ----------
-        args :
+        args
             The arguments to parse.
 
         Returns
@@ -307,7 +306,7 @@ class Program(SubProgram):
 
         Parameters
         ----------
-        args :
+        args
             The arguments to parse.
 
         Returns
@@ -351,7 +350,7 @@ def merge(arg, default, override, args, kwargs):
         kwargs.update({"default": default, "dest": arg})
         kwargs.update(action_by_type(default))
     else:
-        # positionals can't have a metavar, otherwise the help is screwed
+        # positionals can't have a metavar, otherwise the help is messed up
         # if one really wants the metavar, it can be added with @arg
         kwargs["metavar"] = None
     kwargs.update(override[1])

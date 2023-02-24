@@ -2,7 +2,7 @@
 requires = [
     "setuptools>=45",
     "setuptools_scm[toml]>=6.2",
-    "wheel",
+    "wheel"
 ]
 build-backend = "setuptools.build_meta"
 
@@ -12,12 +12,12 @@ dynamic = ["readme", "version"]
 description = "Python library for creating and manipulating CLIs"
 dependencies = [
     "docstring_parser",
-    "docutils",
-    ]
+    "docutils"
+]
 license = {text = "BSD-3-Clause and MIT"}
 authors = [
     {name = "Tim Cera", email = "tim@cerazone.net"}
-    ]
+]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: End Users/Desktop",
@@ -32,16 +32,17 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-    ]
-keywords = ["python",
-            "cli",
-            "argparse",
-            "arguments",
-            "command line",
-            "keyword arguments",
-            "docstring",
-            ]
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+keywords = [
+    "python",
+    "cli",
+    "argparse",
+    "arguments",
+    "command line",
+    "keyword arguments",
+    "docstring"
+]
 
 [project.optional-dependencies]
 dev = [
@@ -59,8 +60,8 @@ dev = [
     "velin",
     "isort",
     "pyupgrade",
-    "commitizen",
-    ]
+    "commitizen"
+]
 
 [project.urls]
 documentation = "https://timcera.bitbucket.io/cltoolbox/docs/index.html#cltoolbox-documentation"
