@@ -1,3 +1,13 @@
+## v2.0.1 (2023-02-25)
+
+### Fix
+
+- finally have a new line added at the end of the help so that the prompt it correct
+
+### Refactor
+
+- refactor with black, isort, and ruff
+
 ## v2.0.0 (2023-01-27)
 
 ## v1.3.3 (2023-01-16)
