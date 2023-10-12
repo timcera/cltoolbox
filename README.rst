@@ -45,14 +45,20 @@ use `mando` instead of `cltoolbox`.
 
 Installation
 ------------
+pip
+~~~
+.. code-block:: bash
 
-.. code-block:: console
+    pip install cltoolbox
 
-    $ pip install cltoolbox
+conda
+~~~~~
+.. code-block:: bash
+
+    conda install -c conda-forge cltoolbox
 
 The problem
 -----------
-
 The ``argparse`` module that comes with Python requires a programmer to
 duplicate information that Python can easily parse from the function signature
 and docstring.  The ``cltoolbox`` does this for you by using decorators.

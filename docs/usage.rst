@@ -306,13 +306,15 @@ to convert what is given on the command line.
     $ python types.py pow 5 8 -m 8
     1.0
 
-.. code-block:: console
+.. code-block:: python
 
     from cltoolbox import command, main
+
 
     # Note: don't actually do this.
     def double_int(n):
         return int(n) * 2
+
 
     @command
     def dup(string, times: double_int):
@@ -323,6 +325,7 @@ to convert what is given on the command line.
         :param times: How many times to duplicate.
         """
         print(string * times)
+
 
     if __name__ == "__main__":
         main()
