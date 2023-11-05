@@ -90,6 +90,6 @@ version = {file = "VERSION"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
-exclude = ["examples*", "tools*", "docs*", "cltoolbox.tests*"]
+exclude = ["tests*", "examples*", "tools*", "docs*", "cltoolbox.tests*"]
 
 [tool.setuptools_scm]

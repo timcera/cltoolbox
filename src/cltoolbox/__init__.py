@@ -1,5 +1,3 @@
-__version__ = "0.7.0"
-
 from cltoolbox.cltoolbox import Program
 
 main = Program()
