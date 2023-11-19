@@ -149,8 +149,10 @@ def dashes(a, b=5):
 
 
 @program.command
-def append(acc=[]):
+def append(acc=None):
     """Have to use a list as default value for append tests to pass."""
+    if acc is None:
+        acc = []
     return acc
 
 
