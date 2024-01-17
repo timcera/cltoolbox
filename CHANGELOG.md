@@ -1,3 +1,10 @@
+## v2.0.2 (2024-01-16)
+
+### Refactor
+
+- sourcery refactor
+- small changes to ci and build
+
 ## v2.0.1 (2023-02-25)
 
 ### Fix
