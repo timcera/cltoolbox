@@ -1,4 +1,5 @@
 """A simple class that wraps argparse help with rst2ansi."""
+
 import argparse
 import sys
 
