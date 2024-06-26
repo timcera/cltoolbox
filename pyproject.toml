@@ -44,25 +44,6 @@ keywords = [
     "docstring"
 ]
 
-[project.optional-dependencies]
-dev = [
-    "black",
-    "cleanpy",
-    "twine",
-    "pytest",
-    "coverage",
-    "flake8",
-    "pytest-cov",
-    "pytest-mpl",
-    "pre-commit",
-    "black-nbconvert",
-    "blacken-docs",
-    "velin",
-    "isort",
-    "pyupgrade",
-    "commitizen"
-]
-
 [project.urls]
 documentation = "https://timcera.bitbucket.io/cltoolbox/docs/index.html#cltoolbox-documentation"
 github = "https://github.com/timcera/cltoolbox"
@@ -80,6 +61,9 @@ update_changelog_on_bump = true
 [tool.isort]
 profile = "black"
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
 [tool.setuptools]
 license-files = ["LICENSE.txt"]
 include-package-data = true
@@ -90,6 +74,5 @@ version = {file = "VERSION"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
-exclude = ["tests*", "examples*", "tools*", "docs*", "cltoolbox.tests*"]
 
 [tool.setuptools_scm]
