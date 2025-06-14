@@ -18,11 +18,6 @@
     :target: https://pypi.python.org/pypi/cltoolbox/
     :height: 20
 
-.. image:: http://img.shields.io/pypi/dd/cltoolbox.svg
-    :alt: cltoolbox downloads
-    :target: https://pypi.python.org/pypi/cltoolbox/
-    :height: 20
-
 .. image:: https://img.shields.io/pypi/pyversions/cltoolbox
     :alt: PyPI - Python Version
     :target: https://pypi.org/project/cltoolbox/
