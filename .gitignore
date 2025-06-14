@@ -33,3 +33,4 @@ htmlcov
 .cache
 venv
 debug_*
+.qodo
