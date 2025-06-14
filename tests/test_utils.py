@@ -1,7 +1,6 @@
 import pytest
 
-from cltoolbox.cltoolbox import docstring
-from cltoolbox.utils import action_by_type, ensure_dashes
+from cltoolbox import cltoolbox
 
 ACTION_BY_TYPE_CASES = [
     (True, {"action": "store_false"}),
@@ -17,7 +16,7 @@ ACTION_BY_TYPE_CASES = [
 
 @pytest.mark.parametrize("obj,result", ACTION_BY_TYPE_CASES)
 def test_action_by_type(obj, result):
-    assert result == action_by_type(obj)
+    assert result == cltoolbox._action_by_type(obj)
 
 
 ENSURE_DASHES_CASES = [
@@ -33,7 +32,7 @@ ENSURE_DASHES_CASES = [
 
 @pytest.mark.parametrize("opts,result", ENSURE_DASHES_CASES)
 def test_ensure_dashes(opts, result):
-    assert result == list(ensure_dashes(opts))
+    assert result == list(cltoolbox._ensure_dashes(opts))
 
 
 SPLIT_DOC_CASES = [
@@ -47,7 +46,7 @@ SPLIT_DOC_CASES = [
 
 @pytest.mark.parametrize("doc,parts", SPLIT_DOC_CASES)
 def test_split_doc(doc, parts):
-    pdoc, _ = docstring(doc)
+    pdoc, _ = cltoolbox.docstring(doc)
     assert parts == [pdoc.short_description, pdoc.long_description]
 
 
@@ -103,7 +102,7 @@ FIND_PARAM_CASES = [
 
 @pytest.mark.parametrize("doc,params", FIND_PARAM_CASES)
 def test_find_param(doc, params):
-    _, found_params = docstring(doc)
+    _, found_params = cltoolbox.docstring(doc)
     assert params.keys() == found_params.keys()
     for key, value in params.items():
         assert key in found_params.keys()
