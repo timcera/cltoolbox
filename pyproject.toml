@@ -73,5 +73,6 @@ version = {file = "VERSION"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+exclude = ["python-rst2ansi"]
 
 [tool.setuptools_scm]
