@@ -54,7 +54,7 @@ bitbucket = "https://bitbucket.org/timcera/cltoolbox/src/main/"
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "3.0.1"
+version = "3.0.2"
 tag_format = "v$version"
 version_files = ["VERSION"]
 update_changelog_on_bump = true
