@@ -11,7 +11,8 @@ name = "cltoolbox"
 dynamic = ["readme", "version"]
 description = "Python library for creating and manipulating CLIs"
 dependencies = [
-    "docstring_parser"
+    "docstring_parser",
+    "docutils"
 ]
 license = {text = "BSD-3-Clause and MIT"}
 authors = [
