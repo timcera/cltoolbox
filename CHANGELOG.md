@@ -1,3 +1,9 @@
+## v4.0.0 (2025-06-28)
+
+### BREAKING CHANGE
+
+- refactor to import rst2ansi correctly
+
 ## v3.0.2 (2025-06-16)
 
 ### Fix
