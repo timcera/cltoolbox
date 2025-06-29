@@ -11,7 +11,8 @@ name = "cltoolbox"
 dynamic = ["readme", "version"]
 description = "Python library for creating and manipulating CLIs"
 dependencies = [
-    "docstring_parser"
+    "docstring_parser",
+    "docutils"
 ]
 license = {text = "BSD-3-Clause and MIT"}
 authors = [
@@ -54,7 +55,7 @@ bitbucket = "https://bitbucket.org/timcera/cltoolbox/src/main/"
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "3.0.2"
+version = "4.0.0"
 tag_format = "v$version"
 version_files = ["VERSION"]
 update_changelog_on_bump = true

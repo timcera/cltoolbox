@@ -3,7 +3,7 @@
 import argparse
 import sys
 
-from rst2ansi import rst2ansi  # type: ignore
+from .python_rst2ansi.rst2ansi import rst2ansi  # type: ignore
 
 
 class RSTHelpFormatter(argparse.RawTextHelpFormatter):
