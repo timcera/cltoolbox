@@ -1,3 +1,9 @@
+## v4.0.1 (2025-10-05)
+
+### Fix
+
+- correctly add support for python-rstansi
+
 ## v4.0.0 (2025-06-28)
 
 ### BREAKING CHANGE
