@@ -461,7 +461,8 @@ class RSTHelpFormatter(argparse.RawTextHelpFormatter):
 
 
 class FlexiHelpFormatter(argparse.HelpFormatter):
-    """Help message formatter which respects paragraphs and bulleted lists.
+    """
+    Help message formatter which respects paragraphs and bulleted lists.
 
     Only the name of this class is considered a public API. All the methods
     provided by the class are considered an implementation detail.
@@ -494,7 +495,8 @@ class FlexiHelpFormatter(argparse.HelpFormatter):
             (indent, sub_indent) = self._indents(line)
             is_text = len(line.strip()) > 0
 
-            if is_text and indent == sub_indent == last_sub_indent:
+            match_table = (r"( [*|+])", line)
+            if is_text and indent == sub_indent == last_sub_indent and not match_table:
                 paragraphs[-1] += f" {line}"
             else:
                 paragraphs.append(line)
