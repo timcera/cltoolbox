@@ -105,8 +105,8 @@ def docstring(dstr):
     }
 
     # Handle descriptions
-    doc.long_description = doc.long_description or doc.short_description
     doc.short_description = doc.short_description or ""
+    doc.long_description = doc.long_description or doc.short_description
     doc.long_description = doc.long_description or ""
 
     return doc, {k.replace("-", "_").lstrip("_"): v for k, v in doc_params.items()}
