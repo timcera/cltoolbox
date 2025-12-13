@@ -1,28 +1,19 @@
 [build-system]
-requires = [
-    "setuptools>=45",
-    "setuptools_scm[toml]>=6.2",
-    "wheel"
-]
 build-backend = "setuptools.build_meta"
+requires = [
+    "setuptools>=80",
+    "setuptools-scm[simple]>=8"
+]
 
 [project]
-name = "cltoolbox"
-dynamic = ["readme", "version"]
-description = "Python library for creating and manipulating CLIs"
-dependencies = [
-    "docstring_parser",
-    "docutils"
-]
-license = {text = "BSD-3-Clause and MIT"}
 authors = [
-    {name = "Tim Cera", email = "tim@cerazone.net"}
+    {email = "tim@cerazone.net", name = "Tim Cera"}
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
-    "Intended Audience :: End Users/Desktop",
-    "Intended Audience :: Developers",
     "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
     "License :: OSI Approved :: BSD License",
     "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
@@ -34,30 +25,39 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
     "Topic :: Software Development :: Libraries :: Python Modules"
+] # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
+dependencies = [
+    "docstring_parser",
+    "docutils"
 ]
+description = "Python library for creating and manipulating CLIs"
+dynamic = ["readme", "version"]
 keywords = [
-    "python",
-    "cli",
     "argparse",
     "arguments",
+    "cli",
     "command line",
+    "docstring",
     "keyword arguments",
-    "docstring"
+    "python"
 ]
+license = {text = "BSD-3-Clause and MIT"}
+name = "cltoolbox"
+requires-python = ">=3.10"
 
 [project.urls]
+bitbucket = "https://bitbucket.org/timcera/cltoolbox/src/main/"
 documentation = "https://timcera.bitbucket.io/cltoolbox/docs/index.html#cltoolbox-documentation"
 github = "https://github.com/timcera/cltoolbox"
-bitbucket = "https://bitbucket.org/timcera/cltoolbox/src/main/"
 
 [tool]
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "4.0.1"
 tag_format = "v$version"
-version_files = ["VERSION"]
 update_changelog_on_bump = true
+version = "4.0.1"
+version_files = ["VERSION"]
 
 [tool.isort]
 profile = "black"
@@ -66,8 +66,8 @@ profile = "black"
 testpaths = ["tests"]
 
 [tool.setuptools]
-license-files = ["LICENSE.txt"]
 include-package-data = true
+license-files = ["LICENSE.txt"]
 
 [tool.setuptools.dynamic]
 readme = {file = "README.rst"}
@@ -75,6 +75,3 @@ version = {file = "VERSION"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
-exclude = ["python-rst2ansi"]
-
-[tool.setuptools_scm]
