@@ -1,3 +1,13 @@
+## v4.0.2 (2026-03-08)
+
+### Fix
+
+- a little bit better FlexHelpFormatter to handle RST tables
+
+### Refactor
+
+- rearrange code that sets the short and long descriptions from the docstring
+
 ## v4.0.1 (2025-10-05)
 
 ### Fix
