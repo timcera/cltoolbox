@@ -33,7 +33,7 @@ differences between `mando` and `cltoolbox` are:
 
     * `cltoolbox` supports automatic detection of Sphinx, Google, and Numpy
       docstring formats by using the `docstring_parser` library
-    * `cltoolbox` supports python 3.7+
+    * `cltoolbox` supports python 3.10+
 
 If you need support of the `mando` formatted docstring or python 2 you have to
 use `mando` instead of `cltoolbox`.
@@ -224,4 +224,4 @@ arguments given to a command are of the wrong type.
 
 The `cltoolbox` supports shell autocompletion via the
 ``argcomplete`` package and supports custom format classes. For a complete
-documentation, visit https://timcera.bibucket.io/cltoolbox/.
+documentation, visit https://timcera.bitbucket.io/cltoolbox/docs/index.html

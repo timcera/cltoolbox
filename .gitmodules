@@ -1,3 +1,4 @@
 [submodule "src/cltoolbox/python_rst2ansi"]
 	path = src/cltoolbox/python_rst2ansi
 	url = git@github.com:timcera/python-rst2ansi.git
+	branch = master
