@@ -3,16 +3,20 @@ ordinary Python functions into commands for the command line. It uses
 :py:module:``argparse`` behind the scenes.
 """
 
+# Standard library imports
 from contextlib import suppress
 
 with suppress(ImportError):
+    # Third party imports
     import argcomplete
+# Standard library imports
 import argparse
 import inspect
 import re
 import sys
 import textwrap
 
+# Third party imports
 from docstring_parser import parse as ds_parse
 
 _POSITIONAL = type("_positional", (object,), {})
@@ -52,7 +56,8 @@ def _ensure_dashes(opts):
 
 
 def docstring(dstr):
-    """Normalizes information from the docstring to be used by cltoolbox.
+    """
+    Normalizes information from the docstring to be used by cltoolbox.
 
     Parameters
     ----------
@@ -62,20 +67,31 @@ def docstring(dstr):
     Returns
     -------
     tup :
-        A tuple of (parsed_docstring_dict, kwargs_dict) extracted from the
+        A tuple of (parsed_docstring, kwargs_dict) extracted from the
         docstring.
 
-        Example entry in the parsed_docstring_dict:
+        Example parsed_docstring if imagined as a dict:
 
-        {...,
-        "start_date": {"description": "[optional, defaults to first date ...",
-                       "default": '2018-01-01',
-                       "arg_name": "start_date",
-                       "long_description": None,
-                       "short_description": "[optional, defaults to first date ...",
-                       ...,
-                       }
-        ...,}
+        {"description": "[optional, defaults to first date ...",
+         "long_description": None,
+         "short_description": "[optional, defaults to first date ...",
+         "deprecation": None,
+         "examples": [],
+         "many_returns": [{"type_name": "None",
+                           "is_generator": False,
+                           "return_name": "",
+                           "description": "None"},],
+         "params": [{"arg_name": "start_date",
+                     "default": "2018-01-01",
+                     "is_optional": True,
+                     "type_name": "str",
+                     "description": "[optional, defaults to first date ..."}],
+         "raises": [],
+         "returns": {"type_name": "None",
+                     "is_generator": False,
+                     "return_name": "",
+                     "description": "None"},
+         }
 
         Example entry in returned kwargs_dict dictionary:
 
@@ -89,27 +105,30 @@ def docstring(dstr):
                       ),
         ...,}
     """
-    doc = ds_parse(dstr)
+    parsed_docstring = ds_parse(dstr)
+
+    # Handle short_description (one-line summary) and
+    # long_description defaults (paragraphs after the one-line summary).
+    parsed_docstring.short_description = parsed_docstring.short_description or ""
+    parsed_docstring.long_description = (
+        parsed_docstring.long_description or parsed_docstring.short_description
+    )
+    parsed_docstring.long_description = parsed_docstring.long_description or ""
 
     doc_params = {
-        i.arg_name: (
+        i.arg_name.replace("-", "_").lstrip("_"): (
             [i.arg_name],
             {
                 "metavar": None,
-                "type": None,
+                "type": None,  # cltoolbox only uses type info from function signature
                 "help": i.description,
                 "default": i.default,
             },
         )
-        for i in doc.params
+        for i in parsed_docstring.params
     }
 
-    # Handle descriptions
-    doc.short_description = doc.short_description or ""
-    doc.long_description = doc.long_description or doc.short_description
-    doc.long_description = doc.long_description or ""
-
-    return doc, {k.replace("-", "_").lstrip("_"): v for k, v in doc_params.items()}
+    return parsed_docstring, doc_params
 
 
 class SubProgram:
@@ -327,7 +346,13 @@ class SubProgram:
 
             opts, meta = doc_params.get(name, ([], {}))
             meta["type"] = (
-                param.annotation if param.annotation is not sig.empty else None
+                param.annotation
+                if (param.annotation is not sig.empty)
+                and (
+                    type(param.annotation)
+                    in (type(str), type(int), type(float), type(bool))
+                )
+                else None
             )
             override = overrides.get(name, ((), {}))
 

@@ -7,7 +7,7 @@ requires = [
 
 [project]
 authors = [
-    {email = "tim@cerazone.net", name = "Tim Cera"}
+    { email = "tim@cerazone.net", name = "Tim Cera" }
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -41,7 +41,7 @@ keywords = [
     "keyword arguments",
     "python"
 ]
-license = {text = "BSD-3-Clause and MIT"}
+license = { text = "BSD-3-Clause and MIT" }
 name = "cltoolbox"
 requires-python = ">=3.10"
 
@@ -53,6 +53,7 @@ github = "https://github.com/timcera/cltoolbox"
 [tool]
 
 [tool.commitizen]
+multiline = true
 name = "cz_conventional_commits"
 tag_format = "v$version"
 update_changelog_on_bump = true
@@ -62,16 +63,33 @@ version_files = ["VERSION"]
 [tool.isort]
 profile = "black"
 
+[tool.jupytext]
+formats = "auto:percent"
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.ruff]
+exclude = ["src/cltoolbox/python-rst2ansi"]
+fix = true
+
+[tool.ruff.lint]
+extend-select = ["I"]
+
+[tool.ruff.lint.isort.import-heading]
+first-party = "First party imports"
+future = "Future imports"
+local-folder = "Local folder imports"
+standard-library = "Standard library imports"
+third-party = "Third party imports"
 
 [tool.setuptools]
 include-package-data = true
 license-files = ["LICENSE.txt"]
 
 [tool.setuptools.dynamic]
-readme = {file = "README.rst"}
-version = {file = "VERSION"}
+readme = { file = "README.rst" }
+version = { file = "VERSION" }
 
 [tool.setuptools.packages.find]
 where = ["src"]
