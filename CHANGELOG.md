@@ -1,3 +1,13 @@
+## v4.0.4 (2026-09-20)
+
+### Fix
+
+- only convert types if type hint is clearly int, float, bool, str
+
+### Refactor
+
+- sorted imports into categories, minor refactors
+
 ## v4.0.3 (2026-06-10)
 
 ## v4.0.2 (2026-03-08)
