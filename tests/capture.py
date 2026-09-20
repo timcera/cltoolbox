@@ -4,12 +4,15 @@ Capture function
 
 """
 
+# Standard library imports
 import sys
 from contextlib import contextmanager
 
 try:
+    # Third party imports
     from cStringIO import StringIO
 except ImportError:
+    # Standard library imports
     from io import StringIO
 
 

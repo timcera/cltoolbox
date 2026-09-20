@@ -1,6 +1,8 @@
+# Standard library imports
 import os
 import sys
 
+# First party imports
 from cltoolbox.cltoolbox import Program
 
 main = Program()

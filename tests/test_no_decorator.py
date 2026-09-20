@@ -1,8 +1,10 @@
+# Standard library imports
 from itertools import tee
 from operator import add
 from unittest import TestCase
 from unittest import main as unittest_main
 
+# First party imports
 from cltoolbox import Program
 
 

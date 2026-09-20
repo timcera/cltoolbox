@@ -1,9 +1,10 @@
-import sys
-
+# Third party imports
 import pytest
 
+# First party imports
 from cltoolbox import Program
 
+# Local folder imports
 from . import capture
 
 program = Program("example.py", "1.0.10")
@@ -36,9 +37,7 @@ def test_generic_command(args, result):
     assert program.parse(args)[0].__name__ == program._current_command
 
 
-option_title = "optional arguments"
-if sys.version_info[:2] >= (3, 10):
-    option_title = "options"
+option_title = "options"
 
 GOOGLE_DOCSTRING_HELP_CASES = [
     (

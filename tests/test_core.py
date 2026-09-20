@@ -1,7 +1,10 @@
+# Standard library imports
 from contextlib import contextmanager
 
+# Third party imports
 import pytest
 
+# First party imports
 from cltoolbox import Program
 
 program = Program("example.py", "1.0.10")
@@ -149,7 +152,7 @@ def dashes(a, b=5):
 
 
 @program.command
-def append(acc=[]):
+def append(acc=[]):  # noqa B006
     """Have to use a list as default value for append tests to pass."""
     return acc
 

@@ -1,5 +1,7 @@
+# Third party imports
 import pytest
 
+# First party imports
 from cltoolbox import cltoolbox
 
 ACTION_BY_TYPE_CASES = [
@@ -105,7 +107,7 @@ def test_find_param(doc, params):
     _, found_params = cltoolbox.docstring(doc)
     assert params.keys() == found_params.keys()
     for key, value in params.items():
-        assert key in found_params.keys()
+        assert key in found_params
         found_value = found_params[key]
         print(value, found_value)
         assert value[0] == found_value[0]

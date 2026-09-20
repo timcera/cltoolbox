@@ -1,8 +1,10 @@
 """A simple class that wraps argparse help with rst2ansi."""
 
+# Standard library imports
 import argparse
 import sys
 
+# Local folder imports
 from .python_rst2ansi.rst2ansi import rst2ansi  # type: ignore
 
 
